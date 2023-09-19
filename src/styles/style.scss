@@ -1,4 +1,41 @@
-.info {
-  background-color: black;
-  color: white;
+.nav {
+  display: flex;
+  justify-content: center;
+  background-color: lightblue;
+  .logo {
+    cursor: pointer;
+  }
+  .search {
+    border: none;
+    border-radius: 10px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 25px;
+    width: 500px;
+  }
+  .searchbtn {
+    background-color: lightblue;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 0px;
+    width: 50px;
+    cursor: pointer;
+  }
+  .reg {
+    font-size: 30px;
+    margin-left: 50px;
+    margin-right: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    cursor: pointer;
+  }
+  .login {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 30px;
+    cursor: pointer;
+  }
 }
