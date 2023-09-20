@@ -31,11 +31,19 @@
   margin-right: 25px;
   margin-top: 25px;
   margin-bottom: 25px;
+  transition: color 0.5s;
   cursor: pointer;
 }
+.nav .reg:hover {
+  color: white;
+}
 .nav .login {
+  font-size: 30px;
   margin-top: 25px;
   margin-bottom: 25px;
-  font-size: 30px;
+  transition: color 0.5s;
   cursor: pointer;
+}
+.nav .login:hover {
+  color: white;
 }/*# sourceMappingURL=style.css.map */
