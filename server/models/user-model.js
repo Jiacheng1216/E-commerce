@@ -23,16 +23,21 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  role: {
-    type: String,
-    enum: ["buyer", "seller"],
-    require: true,
-  },
+  // role: {
+  //   type: String,
+  //   enum: ["buyer", "seller"],
+  //   require: true,
+  // },
 });
 
-userSchema.method.comparePassword = async function (password, cb) {
-  let result = await bcrypt.compare(password, this.password);
-  return cb(null, result);
+userSchema.methods.comparePassword = async function (password, cb) {
+  let result;
+  try {
+    result = await bcrypt.compare(password, this.password);
+    return cb(null, result);
+  } catch (e) {
+    return cb(e, result);
+  }
 };
 
 userSchema.pre("save", async function (next) {

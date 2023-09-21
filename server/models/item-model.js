@@ -15,10 +15,10 @@ const itemSchema = new Schema({
     type: Number,
     require: true,
   },
-  seller: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User", //連結到user-model.js
-  },
+  // seller: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User", //連結到user-model.js
+  // },
   stock: {
     type: Number,
     require: true,
