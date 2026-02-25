@@ -7,6 +7,7 @@ import CartService from "../../services/cart.service";
 
 const NavComponent = ({ currentUser, setCurrentUser }) => {
   let [cartQuantity, setCartQuantity] = useState(0);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const handleLogout = () => {
     AuthServeice.logout();
@@ -30,6 +31,13 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
       console.log(e);
     }
   };
+
+  // 點擊頁面其他地方自動關閉下拉選單
+  useEffect(() => {
+    const handleClickOutside = () => setOpenMenu(false);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   return (
     <main className="nav-main">
@@ -75,51 +83,73 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
       )}
 
       {currentUser && (
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item dropdown">
-            {/* 購物車頁面 */}
-            <Link to="cart">
-              <div className="navCartQuantityAndCart">
-                {cartQuantity > 0 && (
-                  <p className="navCartQuantity">{cartQuantity}</p>
-                )}
-                <img src={cart} width={50}></img>
-              </div>
-            </Link>
+        <div className="cart-user-div">
+          {/* 購物車按鈕 */}
+          <Link className="navCartQuantityAndCart" to="cart">
+            {cartQuantity > 0 && (
+              <p className="navCartQuantity">{cartQuantity}</p>
+            )}
+            <img src={cart} width={50}></img>
+          </Link>
+
+          {/* 使用者名稱＋下拉選單 */}
+          <div className="user-name-menu-div">
             <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+              className="user-name"
+              onClick={(e) => {
+                e.stopPropagation(); // 阻止 document click
+                setOpenMenu(!openMenu);
+              }}
             >
-              {currentUser.user.username}
+              {currentUser.user.username} ▼
             </a>
+            {openMenu && (
+              <ul
+                className="dropdownMenu"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                <li className="">
+                  <Link
+                    className=""
+                    to="/profile"
+                    onClick={() => {
+                      setOpenMenu(false);
+                    }}
+                  >
+                    個人頁面
+                  </Link>
+                </li>
 
-            <ul className="dropdown-menu">
-              <li className="nav-item">
-                <Link className="nav-link" to="/profile">
-                  個人頁面
-                </Link>
-              </li>
+                <li className="">
+                  <Link
+                    className=""
+                    to="/postItem"
+                    onClick={() => {
+                      setOpenMenu(false);
+                    }}
+                  >
+                    我要刊登
+                  </Link>
+                </li>
 
-              <li className="nav-item">
-                <Link className="nav-link" to="/postItem">
-                  我要刊登
-                </Link>
-              </li>
-
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li className="nav-item">
-                <Link onClick={handleLogout} className="nav-link" to="/">
-                  登出
-                </Link>
-              </li>
-            </ul>
-          </li>
-        </ul>
+                <li className="logout-li">
+                  <Link
+                    onClick={() => {
+                      handleLogout();
+                      setOpenMenu(false);
+                    }}
+                    className=""
+                    to="/"
+                  >
+                    登出
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </div>
+        </div>
       )}
     </main>
   );

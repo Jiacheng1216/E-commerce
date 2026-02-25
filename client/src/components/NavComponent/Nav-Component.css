@@ -69,29 +69,17 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-/* 選項 */
-.navbar-nav {
+/* 使用者和購物車圖案區塊 */
+.cart-user-div {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  width: 10rem;
 }
 
-/* 使用者選項和購物車的容器 */
-.dropdown {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 5em;
-  gap: 1vw;
-}
-
-/* 購物車圖示和數字的容器 */
+/* 購物車圖案 */
 .navCartQuantityAndCart {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* 購物車圖示的數字 */
@@ -103,29 +91,59 @@
   color: white;
   width: 18px;
   height: 18px;
-
-  font-size: 12px;
+  right: -0.25rem;
+  font-size: 0.8rem;
   background-color: red;
   border-radius: 75%;
-
   z-index: 1;
 }
 
-/* 購物車圖示 */
-.dropdown img {
+/* 會員名稱和下拉選單的區塊 */
+.user-name-menu-div {
   position: relative;
-  right: 1em;
 }
 
-.dropdown img:hover {
+/* 會員名稱 */
+.user-name {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.user-name:hover {
   cursor: pointer;
 }
 
-.dropdown-toggle {
-  position: relative;
+/* 下拉選單 */
+.dropdownMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  list-style: none;
+  background-color: white;
+  border: 1px solid rgb(218, 215, 215);
+  border-radius: 0.5rem;
+  width: 10rem;
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  z-index: 2;
+  padding-left: 0;
 }
 
-/* 下拉選單 */
-.dropdown-menu {
-  transform: translateX(-10%);
+.dropdownMenu li:hover {
+  background-color: rgb(236, 236, 236);
+}
+
+.dropdownMenu a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}
+
+/* 登出按鈕 */
+.logout-li {
+  border-top: 1px solid rgb(218, 215, 215);
 }
