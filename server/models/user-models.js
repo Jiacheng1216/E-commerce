@@ -27,16 +27,17 @@ const userSchema = new Schema({
   },
 });
 
-// userSchema.methods.comparePassword = async function (password, cb) {
-//   let result;
-//   try {
-//     //result的值為true or false
-//     result = await bcrypt.compare(password, this.password);
-//     return cb(null, result);
-//   } catch (e) {
-//     return cb(e, result);
-//   }
-// };
+userSchema.methods.comparePassword = async function (password, cb) {
+  let result;
+  try {
+    //result的值為true or false
+    // result = await bcrypt.compare(password, this.password);
+    result = password === this.password;
+    return cb(null, result);
+  } catch (e) {
+    return cb(e, result);
+  }
+};
 
 // // mongoose mmiddlewares
 // // 若使用者為新用戶，或是正在更改密碼，則將密碼進行雜湊處理

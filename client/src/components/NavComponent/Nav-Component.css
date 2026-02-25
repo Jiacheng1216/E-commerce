@@ -1,44 +1,50 @@
-/* Logo */
-.logo {
+.nav-main {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-}
-.logo img {
-  margin-right: 0.1px;
+  padding: 0.5rem 1rem;
 }
 
-.logo p {
-  padding-top: 1em;
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo */
+.logo-div a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+.logo-div a img {
+  margin-right: 0.1rem;
+}
+
+.logo-div a p {
+  padding-top: 1rem;
+  font-size: 1.5rem;
   font-weight: 1000;
 }
 
-/* 導覽列 */
-.container-fluid {
+/* 按鈕列表 */
+.nav-div ul {
+  list-style: none;
   display: flex;
-  background-color: rgb(255, 255, 255);
-  margin-top: -0.5em;
-  margin-bottom: -0.5em;
-  height: 5.5em;
-  padding-left: 11em;
-  padding-right: 0em;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 1rem;
 }
 
-/* 商品一覽 選項 */
-.navbar-collapse {
-  margin-left: 0px;
-  padding-right: 18em;
+.nav-div ul li a {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* 搜尋框 */
-.search {
-  position: absolute;
-  top: 1.6em;
-  left: 40%;
-  .form-control {
-    width: 20em;
-  }
+.search-div {
+  display: flex;
+  margin: 0 auto;
 }
 
 /* 登入按鈕 */
@@ -46,49 +52,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 8em;
-  height: 2.2em;
+  width: 12rem;
+  height: 3.5rem;
   border-radius: 75px;
   color: black;
   font-weight: 1000;
   font-size: 1.5em;
   border: 1px solid;
-
-  position: absolute;
-  top: 0.75em;
-  left: 78%;
-  right: 12%;
+  text-decoration: none;
+  color: inherit;
 }
 
 .login-btn:hover {
-  transform: scale(1.07);
+  transform: scale(1.05);
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-/* 選項 */
-.navbar-nav {
+/* 使用者和購物車圖案區塊 */
+.cart-user-div {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  width: 10rem;
 }
 
-/* 使用者選項和購物車的容器 */
-.dropdown {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 5em;
-  gap: 1vw;
-}
-
-/* 購物車圖示和數字的容器 */
+/* 購物車圖案 */
 .navCartQuantityAndCart {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* 購物車圖示的數字 */
@@ -100,29 +91,59 @@
   color: white;
   width: 18px;
   height: 18px;
-
-  font-size: 12px;
+  right: -0.25rem;
+  font-size: 0.8rem;
   background-color: red;
   border-radius: 75%;
-
   z-index: 1;
 }
 
-/* 購物車圖示 */
-.dropdown img {
+/* 會員名稱和下拉選單的區塊 */
+.user-name-menu-div {
   position: relative;
-  right: 1em;
 }
 
-.dropdown img:hover {
+/* 會員名稱 */
+.user-name {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.user-name:hover {
   cursor: pointer;
 }
 
-.dropdown-toggle {
-  position: relative;
+/* 下拉選單 */
+.dropdownMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  list-style: none;
+  background-color: white;
+  border: 1px solid rgb(218, 215, 215);
+  border-radius: 0.5rem;
+  width: 10rem;
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  z-index: 2;
+  padding-left: 0;
 }
 
-/* 下拉選單 */
-.dropdown-menu {
-  transform: translateX(-10%);
+.dropdownMenu li:hover {
+  background-color: rgb(236, 236, 236);
+}
+
+.dropdownMenu a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}
+
+/* 登出按鈕 */
+.logout-li {
+  border-top: 1px solid rgb(218, 215, 215);
 }
