@@ -32,109 +32,96 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          <div className="logo">
+    <main className="nav-main">
+      <div className="left-section">
+        {/* logo按鈕 */}
+        <div className="logo-div">
+          <Link to="/">
             <img src="logo.png" alt="logo" width={60} height={60} />
             <p>電商網站</p>
-          </div>
-        </Link>
-
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link" to="/item">
-                商品一覽
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="searchDiv">
-          <form className="d-flex search" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
-
-        {!currentUser && (
-          <Link to="/Login">
-            <div className="login-btn">
-              <div>登入</div>
-            </div>
           </Link>
-        )}
+        </div>
 
-        {currentUser && (
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item dropdown">
-              {/* 購物車頁面 */}
-              <Link to="cart">
-                <div className="navCartQuantityAndCart">
-                  {cartQuantity > 0 && (
-                    <p className="navCartQuantity">{cartQuantity}</p>
-                  )}
-                  <img src={cart} width={50}></img>
-                </div>
-              </Link>
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {currentUser.user.username}
-              </a>
-
-              <ul className="dropdown-menu">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/profile">
-                    個人頁面
-                  </Link>
-                </li>
-
-                <li className="nav-item">
-                  <Link className="nav-link" to="/postItem">
-                    我要刊登
-                  </Link>
-                </li>
-
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="nav-item">
-                  <Link onClick={handleLogout} className="nav-link" to="/">
-                    登出
-                  </Link>
-                </li>
-              </ul>
+        {/* 按鈕列表 */}
+        <nav className="nav-div">
+          <ul>
+            <li className="item-view-btn">
+              <Link to="/item">商品一覽</Link>
+            </li>
+            <li className="test-btn">
+              <Link to="/">測試</Link>
             </li>
           </ul>
-        )}
+        </nav>
       </div>
-    </nav>
+
+      {/* 搜尋框 */}
+      <div className="search-div">
+        <input
+          className="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button className="btn btn-outline-success" type="submit">
+          Search
+        </button>
+      </div>
+
+      {!currentUser && (
+        <Link className="login-btn" to="/Login">
+          登入
+        </Link>
+      )}
+
+      {currentUser && (
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li className="nav-item dropdown">
+            {/* 購物車頁面 */}
+            <Link to="cart">
+              <div className="navCartQuantityAndCart">
+                {cartQuantity > 0 && (
+                  <p className="navCartQuantity">{cartQuantity}</p>
+                )}
+                <img src={cart} width={50}></img>
+              </div>
+            </Link>
+            <a
+              className="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {currentUser.user.username}
+            </a>
+
+            <ul className="dropdown-menu">
+              <li className="nav-item">
+                <Link className="nav-link" to="/profile">
+                  個人頁面
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link className="nav-link" to="/postItem">
+                  我要刊登
+                </Link>
+              </li>
+
+              <li>
+                <hr className="dropdown-divider" />
+              </li>
+              <li className="nav-item">
+                <Link onClick={handleLogout} className="nav-link" to="/">
+                  登出
+                </Link>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      )}
+    </main>
   );
 };
 
