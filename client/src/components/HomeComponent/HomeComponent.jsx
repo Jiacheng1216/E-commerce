@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const HomeComponent = ({ currentUser, setCurrentUser }) => {
   return (
     <div className="home">
-      <main>
+      <main className="home-main">
         <div className="main-left">
           <h1>開始使用</h1>
           <p>你可以在這個網站上刊登您的商品，或是購買別人刊登的商品。</p>
