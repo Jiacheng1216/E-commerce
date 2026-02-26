@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import ItemService from "../../services/item.service";
 import CartService from "../../services/cart.service";
 import "./IndividualItem-component.css";
@@ -9,13 +9,15 @@ const IndividualItemComponent = ({ currentUser, setCurrentUser }) => {
   const [itemData, setItemData] = useState([]);
   let [quantity, setQuantity] = useState("");
 
+  useEffect(() => {
+    fetchItem();
+  }, []);
+
   const handleQuantity = (e) => {
     setQuantity(e.target.value);
   };
 
-  useEffect(() => {
-    fetchItem();
-  }, []);
+  const navigate = useNavigate();
 
   //查找個別物品
   const fetchItem = async () => {
@@ -29,6 +31,12 @@ const IndividualItemComponent = ({ currentUser, setCurrentUser }) => {
 
   //加入購物車
   const handleAddCart = async () => {
+    if (!currentUser) {
+      window.alert("請先登入會員!");
+      navigate("/login");
+      return;
+    }
+
     if (quantity == "") quantity = 1;
     if (quantity > itemData.quantity) {
       window.alert("已超過剩餘數量!");
@@ -51,24 +59,20 @@ const IndividualItemComponent = ({ currentUser, setCurrentUser }) => {
   };
 
   return (
-    <div className="card">
+    <div className="individualItemPage">
       <div className="itemContainer">
         <div className="imgContainer">
           <img src={`http://localhost:8080/images/${itemData.imagePath}`}></img>
         </div>
         <div className="itemDataContainer">
-          <div className="itemTitleContainer">
-            <h5 className="itemTitle">{itemData.title}</h5>
-          </div>
+          {/* 標題 */}
+          <h5 className="itemTitle">{itemData.title}</h5>
+          {/* 描述 */}
+          <p className="itemDescription">{itemData.description}</p>
+          {/* 價格 */}
+          <p className="itemPrice">${itemData.price}</p>
 
-          <div className="itemPriceContainer">
-            <p className="itemPrice">${itemData.price}</p>
-          </div>
-
-          <div className="itemDescriptionContainer">
-            <p className="itemDescription">{itemData.description}</p>
-          </div>
-
+          {/* 購買數量 */}
           <div className="itemQuantityContainer">
             <p>
               數量:{" "}
@@ -84,20 +88,17 @@ const IndividualItemComponent = ({ currentUser, setCurrentUser }) => {
             <p className="itemQuantity">剩餘: {itemData.quantity} 個</p>
           </div>
 
-          <div>
-            {itemData && itemData.seller && itemData.seller.sellerId && (
-              <>
-                {currentUser &&
-                  currentUser.user._id != itemData.seller.sellerId && (
-                    <div className="cartAndBuyContainer">
-                      <div onClick={handleAddCart} className="addCartContainer">
-                        <p className="addCart">加入購物車</p>
-                      </div>
-                    </div>
-                  )}
-              </>
-            )}
-          </div>
+          {currentUser &&
+          itemData.seller &&
+          itemData.seller.sellerId == currentUser.user._id ? (
+            <div className="addCartContainer">
+              <Link to={`/edit/${itemData._id}`}>編輯商品</Link>
+            </div>
+          ) : (
+            <div onClick={handleAddCart} className="addCartContainer">
+              加入購物車
+            </div>
+          )}
         </div>
       </div>
     </div>

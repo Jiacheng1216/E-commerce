@@ -1,121 +1,137 @@
-.card {
-  background-color: rgb(249, 249, 249);
-}
-
-/* 整個包裝商品資訊的容器 */
-.itemContainer {
+/* 整個頁面 */
+.individualItemPage {
+  background-color: #f8f9fa;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  position: relative;
-  left: 11em;
-  top: 3em;
-  width: 80vw;
-  height: 90vh;
-  margin-bottom: 8em;
+  min-height: calc(100vh - 80px); /* 扣除導覽列高度 */
+  padding: 2rem;
+}
+
+/* 整個商品介紹容器 */
+.itemContainer {
   background-color: white;
+  max-width: 55rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* 圖片容器 */
+/* 商品圖片容器：確保圖片填滿且乾淨 */
 .imgContainer {
-  position: relative;
-  right: 1em;
-  width: 35vw;
-  height: 70vh;
+  flex: 1;
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
 }
 
-/* 圖片 */
 .imgContainer img {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
-/* 商品資訊容器 */
+/* 商品資料容器 */
 .itemDataContainer {
-  position: relative;
-  left: 2.5em;
-  width: 35vw;
-  height: 70vh;
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
-/* 商品標題容器 */
-.itemTitleContainer {
-  height: 17vh;
-}
-
-/* 商品標題 */
+/* 標題 */
 .itemTitle {
-  font-size: 300%;
-  font-weight: 500;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
 }
 
-/* 商品價格容器 */
-.itemPriceContainer {
-  height: 8.5vh;
-}
-
-/* 商品價格 */
-.itemPrice {
-  color: red;
-  font-size: 200%;
-  font-weight: 500;
-}
-
-/* 商品描述容器 */
-.itemDescriptionContainer {
-  height: 30vh;
-}
-
-/* 商品描述 */
+/* 描述 */
 .itemDescription {
-  font-size: 200%;
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1.5rem;
 }
 
-/* 購買數量和剩餘數量容器 */
+/* 價格 */
+.itemPrice {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e44d26;
+  margin: 0.5rem 0;
+}
+
+/* 數量選擇區域 */
 .itemQuantityContainer {
   display: flex;
-}
-
-/* 加入購物車和直接購買容器 */
-.cartAndBuyContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-  height: 10vh;
+  gap: 2rem;
+  margin-top: 1rem;
 }
 
-/* 加入購物車容器 */
-.addCartContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 10vw;
-  height: 6vh;
-  background-color: #e89d72;
-  position: relative;
-  right: 7.5vw;
+.quantityInput {
+  width: 70px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  font-size: 1rem;
 }
 
-/* 加入購物車容器鼠標效果 */
-.addCartContainer:hover {
-  transform: scale(1.07);
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-/* 加入購物車字樣 */
-.addCart {
-  color: white;
-  font-weight: 600;
-  position: relative;
-  top: 0.7vh;
-}
-
-/* 剩餘數量字樣 */
 .itemQuantity {
-  position: relative;
-  left: 1em;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* 加入購物車按鈕 */
+.addCartContainer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  display: inline-block;
+  width: 100%;
+}
+
+.addCartContainer a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.addCartContainer:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.addCartContainer:active {
+  transform: translateY(0);
+}
+
+/* 響應式：手機版調整 */
+@media (max-width: 768px) {
+  .itemContainer {
+    flex-direction: column;
+  }
+  .imgContainer {
+    min-width: 100%;
+    height: 300px;
+  }
+  .itemDataContainer {
+    padding: 1.5rem;
+  }
 }
