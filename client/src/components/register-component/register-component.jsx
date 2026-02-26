@@ -8,6 +8,7 @@ const RegisterComponent = () => {
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  let [confirmPassword, setConfirmPassword] = useState("");
   let [message, setMessage] = useState("");
 
   //預處理提交表單時默認提交並導向其他地方
@@ -28,7 +29,16 @@ const RegisterComponent = () => {
     setPassword(e.target.value);
   };
 
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
   const handleRegister = () => {
+    if (password !== confirmPassword) {
+      setMessage("兩次密碼不一致");
+      return;
+    }
+    setMessage("");
     AuthService.register(email, username, password)
       .then(() => {
         window.alert("註冊成功，您現在將被導向到登入頁面");
@@ -70,6 +80,13 @@ const RegisterComponent = () => {
           placeholder="Password"
         />
 
+        <input
+          onChange={handleConfirmPassword}
+          type="password"
+          className="register-input"
+          id="exampleInputPassword1"
+          placeholder="Confirm Password"
+        />
         <p>
           已經有帳號了？立即<Link to={"/login"}>登入</Link>
         </p>
