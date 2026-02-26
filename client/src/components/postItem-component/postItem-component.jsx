@@ -4,12 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "./postItem-component.css";
 
 const PostItemComponent = ({ currentUser, setCurrentUser }) => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const navigate = useNavigate();
-
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [price, setPrice] = useState("");
@@ -20,6 +14,12 @@ const PostItemComponent = ({ currentUser, setCurrentUser }) => {
   let [image, setImage] = useState(null);
   // 錯誤訊息
   let [message, setMessage] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  const navigate = useNavigate();
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -88,16 +88,14 @@ const PostItemComponent = ({ currentUser, setCurrentUser }) => {
   };
 
   return (
-    <div className="editContainer">
+    <div className="editPage">
       <form
         className="editForm"
-        action="/profile"
         method="post"
         onSubmit={handleSubmit}
-        style={{ padding: "5rem" }}
         encType="multipart/form-data"
       >
-        <h1 className="postItemh1">請輸入商品資訊</h1>
+        <h1 className="postItemH1">請輸入商品資訊</h1>
         <div className="mb-3">
           {message && <div className="alert alert-danger">{message}</div>}
           <label htmlFor="exampleInputTitle" className="form-label">

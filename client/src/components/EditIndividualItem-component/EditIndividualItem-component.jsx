@@ -103,104 +103,97 @@ const EditIndividualItemConponent = ({ currentUser, setCurrentUser }) => {
   };
 
   return (
-    <div className="">
+    <div className="editItemPage">
       {currentUser && itemData && itemData.seller && (
         <>
           {currentUser.user._id != itemData.seller.sellerId && (
             <div>不可以修改別人的商品!</div>
           )}
           {currentUser.user._id === itemData.seller.sellerId && (
-            <div className="editContainer">
-              <form
-                className="editForm"
-                onSubmit={handleSubmit}
-                style={{ padding: "5rem" }}
+            <form className="editForm" onSubmit={handleSubmit}>
+              <div className="mb-3">
+                {/* {message && <div className="alert alert-danger">{message}</div>} */}
+                <h1 className="editItemH1">請輸入要更改的資訊</h1>
+                <label htmlFor="exampleInputEmail1" className="form-label">
+                  商品名稱:
+                </label>
+
+                <input
+                  type="text"
+                  onChange={handleTitle}
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="examplephoto" className="form-label">
+                  商品圖片:
+                </label>
+                <input
+                  name="photo"
+                  type="file"
+                  onChange={handleFileChange}
+                  className="form-control"
+                  id="examplephoto"
+                />
+                <br></br>
+
+                {!image && (
+                  <img
+                    class="img-thumbnail"
+                    src={`http://localhost:8080/images/${itemData.imagePath}`}
+                  ></img>
+                )}
+
+                {image && <img class="img-thumbnail" src={image}></img>}
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
+                  商品描述:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputPassword1"
+                  onChange={handleDescription}
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
+                  價格:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputPassword1"
+                  onChange={handlePrice}
+                />
+              </div>
+
+              <div className="quantitydiv">
+                <label for="quantity">數量：</label>
+                <input
+                  className="quantityInput"
+                  onChange={handleQuantity}
+                  type="number"
+                  id="quantity"
+                  min="1"
+                  max="100"
+                ></input>
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-primary"
+                onClick={handleEditItem}
               >
-                <div className="mb-3">
-                  {/* {message && <div className="alert alert-danger">{message}</div>} */}
-                  <h1>請輸入要更改的商品資訊</h1>
-                  <br></br>
-                  <label htmlFor="exampleInputEmail1" className="form-label">
-                    商品名稱:
-                  </label>
-
-                  <input
-                    type="text"
-                    onChange={handleTitle}
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor="examplephoto" className="form-label">
-                    商品圖片:
-                  </label>
-                  <input
-                    name="photo"
-                    type="file"
-                    onChange={handleFileChange}
-                    className="form-control"
-                    id="examplephoto"
-                  />
-                  <br></br>
-
-                  {!image && (
-                    <img
-                      class="img-thumbnail"
-                      src={`http://localhost:8080/images/${itemData.imagePath}`}
-                    ></img>
-                  )}
-
-                  {image && <img class="img-thumbnail" src={image}></img>}
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor="exampleInputPassword1" className="form-label">
-                    商品描述:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    onChange={handleDescription}
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor="exampleInputPassword1" className="form-label">
-                    價格:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    onChange={handlePrice}
-                  />
-                </div>
-
-                <div className="quantitydiv">
-                  <label for="quantity">數量：</label>
-                  <input
-                    className="quantityInput"
-                    onChange={handleQuantity}
-                    type="number"
-                    id="quantity"
-                    min="1"
-                    max="100"
-                  ></input>
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  onClick={handleEditItem}
-                >
-                  完成修改
-                </button>
-              </form>
-            </div>
+                完成修改
+              </button>
+            </form>
           )}
         </>
       )}
