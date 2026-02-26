@@ -1,43 +1,49 @@
+/* 整個頁面 */
 .loginPage {
-  width: 100%;
-  height: 100vh;
+  background: #f6f7f7;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fce3fe;
+  height: 100vh;
 }
 
 .loginForm {
-  display: flex;
-  background-color: white;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-
-  width: 33vw; /* 设置宽度 */
-  height: 70vh; /* 设置高度 */
-}
-
-.loginInput {
+  max-width: 450px;
   width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.LoginAndRegister {
+  border: 1px solid rgb(192, 191, 191);
+  border-radius: 0.5rem;
+  background-color: white;
   display: flex;
-  flex-direction: row;
-  justify-content: left;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 1rem;
+  padding: 3rem;
 }
 
-.LoginAndRegister .btn {
-  position: relative;
-  top: 1em;
+/* 錯誤訊息 */
+.errorMessage {
+  color: red;
 }
 
-.LoginAndRegister .form-check-label {
-  position: relative;
-  top: 1em;
-  margin-left: 2em;
+/* 輸入框 */
+.loginPage-input {
+  background-color: rgb(246, 246, 246);
+  border: 0;
+  border-radius: 0.2rem;
+  width: 100%;
+  height: 2.5rem;
+  padding-left: 1rem;
+}
+
+/* 登入按鈕 */
+.loginPage-loginBtn {
+  border: 0;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-size: 1.5rem;
+}
+
+.loginPage-loginBtn:hover {
+  background-color: dodgerblue;
 }
