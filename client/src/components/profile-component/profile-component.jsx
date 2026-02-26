@@ -61,7 +61,7 @@ const ProfileComponent = ({ currentUser, setCurrentUser }) => {
               {itemData.map((item) => {
                 return (
                   <div className="itemCard" key={item._id}>
-                    <Link to={`IndividualItem/${item._id}`}>
+                    <Link to={`/item/IndividualItem/${item._id}`}>
                       <img
                         src={`http://localhost:8080/images/${item.imagePath}`}
                         className="card-img"
