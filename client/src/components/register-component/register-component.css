@@ -1,25 +1,45 @@
+/* 整個頁面 */
 .registerPage {
-  width: 100%;
+  background: #f6f7f7;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fce3fe;
 }
 
+/* 整個表格 */
 .registerForm {
-  display: flex;
+  max-width: 450px;
+  width: 100%;
+  border: 1px solid rgb(192, 191, 191);
+  border-radius: 0.5rem;
   background-color: white;
-  position: relative;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  width: 33vw; /* 设置宽度 */
-  height: 70vh; /* 设置高度 */
+  gap: 1rem;
+  padding: 3rem;
 }
 
-.registerInput {
+/* 輸入框 */
+.register-input {
+  background-color: rgb(246, 246, 246);
+  border: 0;
+  border-radius: 0.2rem;
   width: 100%;
-  align-items: center;
-  justify-content: center;
+  height: 2.5rem;
+  padding-left: 1rem;
+}
+
+/* 登入按鈕 */
+.register-btn {
+  border: 0;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-size: 1.5rem;
+}
+
+.register-btn:hover {
+  background-color: dodgerblue;
 }
