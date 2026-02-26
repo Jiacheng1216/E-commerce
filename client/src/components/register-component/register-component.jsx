@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import AuthService from "../../services/auth.service";
 //重新導向功能
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./register-component.css";
 
 const RegisterComponent = () => {
-  //預處理提交表單時默認提交並導向其他地方
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const navigate = useNavigate();
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  let [confirmPassword, setConfirmPassword] = useState("");
   let [message, setMessage] = useState("");
+
+  //預處理提交表單時默認提交並導向其他地方
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleRegister();
+  };
+
+  const navigate = useNavigate();
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -26,7 +29,16 @@ const RegisterComponent = () => {
     setPassword(e.target.value);
   };
 
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
   const handleRegister = () => {
+    if (password !== confirmPassword) {
+      setMessage("兩次密碼不一致");
+      return;
+    }
+    setMessage("");
     AuthService.register(email, username, password)
       .then(() => {
         window.alert("註冊成功，您現在將被導向到登入頁面");
@@ -39,66 +51,49 @@ const RegisterComponent = () => {
 
   return (
     <div className="registerPage">
-      <form
-        className="registerForm"
-        onSubmit={handleSubmit}
-        style={{ padding: "5rem" }}
-      >
-        <div className="registerInput">
-          <div className="mb-3">
-            {message && <div className="alert alert-danger">{message}</div>}
+      <form className="registerForm" onSubmit={handleSubmit}>
+        {message && <div className="errorMessage">{message}</div>}
 
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              電子信箱
-            </label>
-            <input
-              onChange={handleEmail}
-              type="email"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-            />
-          </div>
+        <h1>註冊</h1>
+        <input
+          onChange={handleEmail}
+          type="email"
+          className="register-input"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          placeholder="Email"
+        />
 
-          <div className="mb-3">
-            <label htmlFor="exampleInputUsername" className="form-label">
-              用戶名稱
-            </label>
-            <input
-              onChange={handleUsername}
-              type="text"
-              className="form-control"
-              id="exampleInputUsername"
-            />
-          </div>
+        <input
+          onChange={handleUsername}
+          type="text"
+          className="register-input"
+          id="exampleInputUsername"
+          placeholder="Username"
+        />
 
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              密碼
-            </label>
-            <input
-              onChange={handlePassword}
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-            />
-          </div>
+        <input
+          onChange={handlePassword}
+          type="password"
+          className="register-input"
+          id="exampleInputPassword1"
+          placeholder="Password"
+        />
 
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <label className="form-check-label" htmlFor="exampleCheck1">
-              Check me out
-            </label>
-          </div>
+        <input
+          onChange={handleConfirmPassword}
+          type="password"
+          className="register-input"
+          id="exampleInputPassword1"
+          placeholder="Confirm Password"
+        />
+        <p>
+          已經有帳號了？立即<Link to={"/login"}>登入</Link>
+        </p>
 
-          <button onClick={handleRegister} className="btn btn-primary">
-            註冊
-          </button>
-        </div>
+        <button type="submit" className="register-btn">
+          註冊
+        </button>
       </form>
     </div>
   );
