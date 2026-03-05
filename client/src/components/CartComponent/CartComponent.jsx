@@ -5,7 +5,7 @@ import cartService from "../../services/cart.service";
 import "./CartComponent.css";
 
 const CartComponent = ({ currentUser, setCurrentUser }) => {
-  const [cartData, setCartData] = useState([]);
+  let [cartData, setCartData] = useState([]);
   let [cartQuantity, setCartQuantity] = useState(1);
   let [total, setTotal] = useState(0);
 
@@ -17,7 +17,8 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
 
   useEffect(() => {
     fetchCart();
-    handleUpdateCart();
+
+    // handleUpdateCart();
     // calculateTotalPrice();
   }, []);
 
@@ -42,16 +43,16 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
   };
 
   //修改訂單(數量)
-  const handleUpdateCart = async (id) => {
-    try {
-      let response = await cartService.updateCart(cartQuantity, id);
-      // calculateTotalPrice();
-      fetchCart();
-      console.log(response);
-    } catch (e) {
-      console.log(e.response.data);
-    }
-  };
+  // const handleUpdateCart = async (id) => {
+  //   try {
+  //     let response = await cartService.updateCart(cartQuantity, id);
+  //     // calculateTotalPrice();
+  //     fetchCart();
+  //     console.log(response);
+  //   } catch (e) {
+  //     console.log(e.response.data);
+  //   }
+  // };
 
   //刪除訂單
   const handleDeleteCart = async (id) => {
@@ -96,25 +97,25 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
                 <div className="cartImgContainer">
                   <img
                     onClick={() =>
-                      navigate(`/item/IndividualItem/${cart.itemID}`)
+                      navigate(`/item/IndividualItem/${cart.itemId._id}`)
                     }
-                    src={`http://localhost:8080/images/${cart.imagePath}`}
+                    src={`http://localhost:8080/images/${cart.itemId.imagePath}`}
                   ></img>
                 </div>
 
                 <div className="cartTitle">
                   <p
                     onClick={() =>
-                      navigate(`/item/IndividualItem/${cart.itemID}`)
+                      navigate(`/item/IndividualItem/${cart.itemId._id}`)
                     }
                     className="cartTitleText"
                   >
-                    {cart.title}
+                    {cart.itemId.title}
                   </p>
                 </div>
 
                 <div className="cartPrice">
-                  <p className="cartText">{cart.price}</p>
+                  <p className="cartText">{cart.itemId.price}</p>
                 </div>
 
                 <div className="cartQuantity">
@@ -123,6 +124,7 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
                     type="number"
                     min="1"
                     max="100"
+                    defaultValue={cart.quantity}
                     onChange={handleQuantity}
                     onClick={() => handleUpdateCart(cart._id)}
                   ></input>
