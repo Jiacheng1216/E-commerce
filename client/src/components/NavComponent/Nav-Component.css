@@ -75,6 +75,7 @@
   justify-content: space-around;
   align-items: center;
   width: 10rem;
+  gap: 1rem;
 }
 
 /* 購物車圖案 */

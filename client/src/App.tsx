@@ -15,6 +15,7 @@ import CartComponent from "./components/CartComponent/CartComponent";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
+  let [cartQuantity, setCartQuantity] = useState(0);
 
   return (
     <BrowserRouter>
@@ -22,7 +23,7 @@ function App() {
         <Route
           path="/"
           element={
-            <Layout currentUser={currentUser} setCurrentUser={setCurrentUser} />
+            <Layout currentUser={currentUser} setCurrentUser={setCurrentUser} cartQuantity={cartQuantity} />
           }
         >
           {/* 首頁 */}
@@ -89,6 +90,7 @@ function App() {
               <IndividualItemComponent
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
+                setCartQuantity={setCartQuantity}
               />
             }
           />
@@ -122,6 +124,7 @@ function App() {
               <CartComponent
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
+                setCartQuantity ={setCartQuantity}
               />
             }
           />

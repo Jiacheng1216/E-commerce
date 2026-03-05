@@ -5,31 +5,13 @@ import "./Nav-Component.css";
 import cart from "../Assets/cart.png";
 import CartService from "../../services/cart.service";
 
-const NavComponent = ({ currentUser, setCurrentUser }) => {
-  let [cartQuantity, setCartQuantity] = useState(0);
+const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
   const [openMenu, setOpenMenu] = useState(false);
 
   const handleLogout = () => {
     AuthServeice.logout();
     window.alert("登出成功，即將被導向首頁");
     setCurrentUser(null);
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchCart();
-    }, 1000); // 每隔 1 秒更新一次
-    return () => clearInterval(interval);
-  }, []);
-
-  // 查找購物車有多少商品
-  const fetchCart = async () => {
-    try {
-      const response = await CartService.selfCart(currentUser.user._id);
-      setCartQuantity(response.data.length);
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   // 點擊頁面其他地方自動關閉下拉選單

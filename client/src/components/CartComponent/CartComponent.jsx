@@ -4,64 +4,55 @@ import { useNavigate, useParams } from "react-router-dom";
 import cartService from "../../services/cart.service";
 import "./CartComponent.css";
 
-const CartComponent = ({ currentUser, setCurrentUser }) => {
-  const [cartData, setCartData] = useState([]);
-  let [cartQuantity, setCartQuantity] = useState(1);
+const CartComponent = ({ currentUser, setCurrentUser, setCartQuantity }) => {
+  let [cartData, setCartData] = useState([]);
   let [total, setTotal] = useState(0);
 
   const navigate = useNavigate();
 
-  const handleQuantity = (e) => {
-    setCartQuantity(e.target.value);
-  };
-
   useEffect(() => {
     fetchCart();
-    handleUpdateCart();
-    calculateTotalPrice();
   }, []);
-
-  // 計算總金額
-  const calculateTotalPrice = () => {
-    let total = 0;
-    cartData.forEach((cart) => {
-      total += cart.total;
-    });
-    setTotal(total);
-  };
 
   //進頁面時，查找加入購物車的商品
   const fetchCart = async () => {
     try {
       const response = await cartService.selfCart(currentUser.user._id);
-      setCartData(response.data);
-      calculateTotalPrice();
+      setCartData(response.data.calcuEveryItemPriceSelfCart);
+      setTotal(response.data.calcuTotalPrice);
+      setCartQuantity(response.data.calcuEveryItemPriceSelfCart.length);
     } catch (e) {
       console.log(e);
     }
   };
 
   //修改訂單(數量)
-  const handleUpdateCart = async (id) => {
+  const handleUpdateCart = async (itemId, quantity, action) => {
     try {
-      let response = await cartService.updateCart(cartQuantity, id);
-      calculateTotalPrice();
+      let response = await cartService.add(
+        currentUser.user._id,
+        itemId,
+        quantity,
+        action
+      );
+
       fetchCart();
-      console.log(response);
     } catch (e) {
       console.log(e.response.data);
     }
   };
 
   //刪除訂單
-  const handleDeleteCart = async (id) => {
+  const handleDeleteCart = async (itemId, quantity) => {
     const comfirmed = window.confirm("您確定要刪除訂單嗎? 該操作不可復原");
     if (comfirmed) {
       try {
-        let response = await cartService.deleteCart(id);
-        calculateTotalPrice();
+        let response = await cartService.add(
+          currentUser.user._id,
+          itemId,
+          -quantity
+        );
         fetchCart();
-        navigate("/cart");
       } catch (e) {
         console.log(e.response.data);
       }
@@ -71,73 +62,97 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
   return (
     <div className="cartPage">
       <div className="cartIllustrate">
-        <div className="cartIllustrateTitle">
+        <div className="col-product">
           <p className="cartIllustrateText">商品</p>
         </div>
-        <div className="cartIllustratePrice">
+        <div className="col-price">
           <p className="cartIllustrateText">單價</p>
         </div>
-        <div className="cartIllustrateQuantity">
+        <div className="col-quantity">
           <p className="cartIllustrateText">數量</p>
         </div>
-        <div className="cartIllustrateTotal">
+        <div className="col-total">
           <p className="cartIllustrateText">總價</p>
         </div>
-        <div className="cartIllustrateDelete">
-          <p className="cartIllustrateText">刪除訂單</p>
+        <div className="col-action">
+          <p className="cartIllustrateText">操作</p>
         </div>
       </div>
       {!currentUser && <div>在獲取您的購物車資料之前，您必須先登錄。</div>}
-      {cartData && cartData != 0 && (
+      {cartData.length > 0 && (
         <div className="cartContainer">
           {cartData.map((cart) => {
             return (
-              <div className="cartRowContainer">
-                <div className="cartImgContainer">
-                  <img
-                    onClick={() =>
-                      navigate(`/item/IndividualItem/${cart.itemID}`)
-                    }
-                    src={`http://localhost:8080/images/${cart.imagePath}`}
-                  ></img>
-                </div>
-
-                <div className="cartTitle">
+              <div className="cartRowContainer" key={cart._id}>
+                <div className="col-product product-info">
+                  <div className="cartImgContainer">
+                    <img
+                      onClick={() =>
+                        navigate(`/item/IndividualItem/${cart.itemId._id}`)
+                      }
+                      src={`http://localhost:8080/images/${cart.itemId.imagePath}`}
+                    ></img>
+                  </div>
                   <p
-                    onClick={() =>
-                      navigate(`/item/IndividualItem/${cart.itemID}`)
-                    }
                     className="cartTitleText"
+                    onClick={() =>
+                      navigate(`/item/IndividualItem/${cart.itemId._id}`)
+                    }
                   >
-                    {cart.title}
+                    {cart.itemId.title}
                   </p>
                 </div>
 
-                <div className="cartPrice">
-                  <p className="cartText">{cart.price}</p>
+                <div className="col-price">
+                  <p className="cartText">{cart.itemId.price}</p>
                 </div>
 
-                <div className="cartQuantity">
-                  <input
-                    className="cartQuantityText"
-                    type="number"
-                    min="1"
-                    max="100"
-                    onChange={handleQuantity}
-                    onClick={() => handleUpdateCart(cart._id)}
-                  ></input>
+                <div className="col-quantity">
+                  <div className="quantity-control">
+                    <button
+                      className="cartQuantityBtn"
+                      onClick={() => {
+                        handleUpdateCart(cart.itemId._id, -1);
+                      }}
+                    >
+                      -
+                    </button>
+                    <input
+                      className="cartQuantityText"
+                      value={cart.quantity}
+                      onChange={(e) => {
+                        const newQuantity = Number(e.target.value);
+
+                        handleUpdateCart(
+                          cart.itemId._id,
+                          newQuantity,
+                          "directAdjust"
+                        );
+                      }}
+                    ></input>
+                    <button
+                      className="cartQuantityBtn"
+                      onClick={() => {
+                        handleUpdateCart(cart.itemId._id, 1);
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
 
-                <div className="cartTotal">
-                  <p className="cartText">{cart.total}</p>
+                <div className="col-total">
+                  <p className="cartText text-red">{cart.itemTotal}</p>
                 </div>
 
-                <div className="cartDelete">
+                <div className="col-action">
                   <button
                     type="button"
                     className="btn-close"
                     aria-label="Close"
-                    onClick={() => handleDeleteCart(cart._id)}
+                    onClick={() =>
+                      handleDeleteCart(cart.itemId._id, cart.quantity)
+                    }
                   ></button>
                 </div>
               </div>
