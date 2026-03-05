@@ -47,12 +47,10 @@ const IndividualItemComponent = ({ currentUser, setCurrentUser }) => {
       let response = await CartService.add(
         currentUser.user._id,
         itemData._id,
-        quantity,
-        itemData.imagePath,
-        itemData.title,
-        itemData.price
+        quantity
       );
-      window.alert("加入購物車成功!");
+
+      window.alert(response.data.msg);
     } catch (e) {
       console.log(e);
     }

@@ -3,14 +3,11 @@ const API_URL = "http://localhost:8080/api/cart";
 
 class CartService {
   //加入購物車
-  add(userID, itemID, quantity, imagePath, title, price) {
+  add(userID, itemID, quantity) {
     return axios.post(API_URL, {
       userID,
       itemID,
       quantity,
-      imagePath,
-      title,
-      price,
     });
   }
 
