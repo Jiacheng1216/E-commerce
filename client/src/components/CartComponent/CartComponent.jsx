@@ -6,19 +6,13 @@ import "./CartComponent.css";
 
 const CartComponent = ({ currentUser, setCurrentUser }) => {
   let [cartData, setCartData] = useState([]);
-  let [cartQuantity, setCartQuantity] = useState(1);
   let [total, setTotal] = useState(0);
 
   const navigate = useNavigate();
 
-  const handleQuantity = (e) => {
-    setCartQuantity(e.target.value);
-  };
-
   useEffect(() => {
     fetchCart();
 
-    // handleUpdateCart();
     // calculateTotalPrice();
   }, []);
 
@@ -43,26 +37,33 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
   };
 
   //修改訂單(數量)
-  // const handleUpdateCart = async (id) => {
-  //   try {
-  //     let response = await cartService.updateCart(cartQuantity, id);
-  //     // calculateTotalPrice();
-  //     fetchCart();
-  //     console.log(response);
-  //   } catch (e) {
-  //     console.log(e.response.data);
-  //   }
-  // };
+  const handleUpdateCart = async (itemId, quantity) => {
+    try {
+      let response = await cartService.add(
+        currentUser.user._id,
+        itemId,
+        quantity
+      );
+
+      fetchCart();
+      // calculateTotalPrice();
+    } catch (e) {
+      console.log(e.response.data);
+    }
+  };
 
   //刪除訂單
-  const handleDeleteCart = async (id) => {
+  const handleDeleteCart = async (itemId, quantity) => {
     const comfirmed = window.confirm("您確定要刪除訂單嗎? 該操作不可復原");
     if (comfirmed) {
       try {
-        let response = await cartService.deleteCart(id);
+        let response = await cartService.add(
+          currentUser.user._id,
+          itemId,
+          -quantity
+        );
         // calculateTotalPrice();
         fetchCart();
-        navigate("/cart");
       } catch (e) {
         console.log(e.response.data);
       }
@@ -119,12 +120,26 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
                 </div>
 
                 <div className="cartQuantity">
-                  <button className="cartQuantityBtn">-</button>
+                  <button
+                    className="cartQuantityBtn"
+                    onClick={() => {
+                      handleUpdateCart(cart.itemId._id, -1);
+                    }}
+                  >
+                    -
+                  </button>
                   <input
                     className="cartQuantityText"
-                    defaultValue={cart.quantity}
+                    value={cart.quantity}
                   ></input>
-                  <button className="cartQuantityBtn">+</button>
+                  <button
+                    className="cartQuantityBtn"
+                    onClick={() => {
+                      handleUpdateCart(cart.itemId._id, 1);
+                    }}
+                  >
+                    +
+                  </button>
                 </div>
 
                 <div className="cartTotal">
@@ -136,7 +151,9 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
                     type="button"
                     className="btn-close"
                     aria-label="Close"
-                    onClick={() => handleDeleteCart(cart._id)}
+                    onClick={() =>
+                      handleDeleteCart(cart.itemId._id, cart.quantity)
+                    }
                   ></button>
                 </div>
               </div>
