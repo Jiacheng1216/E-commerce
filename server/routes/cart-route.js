@@ -56,6 +56,7 @@ router.post("/", async (req, res) => {
       })
     }else{
       cart.items.push({itemId:itemID,quantity:quantity})
+      await cart.save();
       return res.status(201).send({
         msg: "成功從購物車中新增商品",
         cart,  
