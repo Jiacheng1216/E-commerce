@@ -126,6 +126,11 @@
   align-items: center;
 }
 
+/* 數量的+-按鈕 */
+.cartQuantityBtn {
+  border: 1px solid gray;
+}
+
 /* 數量的input標籤 */
 .cartQuantityText {
   display: flex;

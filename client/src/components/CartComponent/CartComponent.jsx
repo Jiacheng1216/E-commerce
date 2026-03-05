@@ -119,15 +119,12 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
                 </div>
 
                 <div className="cartQuantity">
+                  <button className="cartQuantityBtn">-</button>
                   <input
                     className="cartQuantityText"
-                    type="number"
-                    min="1"
-                    max="100"
                     defaultValue={cart.quantity}
-                    onChange={handleQuantity}
-                    onClick={() => handleUpdateCart(cart._id)}
                   ></input>
+                  <button className="cartQuantityBtn">+</button>
                 </div>
 
                 <div className="cartTotal">
