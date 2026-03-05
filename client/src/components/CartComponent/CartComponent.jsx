@@ -61,20 +61,20 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
   return (
     <div className="cartPage">
       <div className="cartIllustrate">
-        <div className="cartIllustrateTitle">
+        <div className="col-product">
           <p className="cartIllustrateText">商品</p>
         </div>
-        <div className="cartIllustratePrice">
+        <div className="col-price">
           <p className="cartIllustrateText">單價</p>
         </div>
-        <div className="cartIllustrateQuantity">
+        <div className="col-quantity">
           <p className="cartIllustrateText">數量</p>
         </div>
-        <div className="cartIllustrateTotal">
+        <div className="col-total">
           <p className="cartIllustrateText">總價</p>
         </div>
-        <div className="cartIllustrateDelete">
-          <p className="cartIllustrateText">刪除訂單</p>
+        <div className="col-action">
+          <p className="cartIllustrateText">操作</p>
         </div>
       </div>
       {!currentUser && <div>在獲取您的購物車資料之前，您必須先登錄。</div>}
@@ -83,67 +83,68 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
           {cartData.map((cart) => {
             return (
               <div className="cartRowContainer" key={cart._id}>
-                <div className="cartImgContainer">
-                  <img
-                    onClick={() =>
-                      navigate(`/item/IndividualItem/${cart.itemId._id}`)
-                    }
-                    src={`http://localhost:8080/images/${cart.itemId.imagePath}`}
-                  ></img>
-                </div>
-
-                <div className="cartTitle">
+                <div className="col-product product-info">
+                  <div className="cartImgContainer">
+                    <img
+                      onClick={() =>
+                        navigate(`/item/IndividualItem/${cart.itemId._id}`)
+                      }
+                      src={`http://localhost:8080/images/${cart.itemId.imagePath}`}
+                    ></img>
+                  </div>
                   <p
+                    className="cartTitleText"
                     onClick={() =>
                       navigate(`/item/IndividualItem/${cart.itemId._id}`)
                     }
-                    className="cartTitleText"
                   >
                     {cart.itemId.title}
                   </p>
                 </div>
 
-                <div className="cartPrice">
+                <div className="col-price">
                   <p className="cartText">{cart.itemId.price}</p>
                 </div>
 
-                <div className="cartQuantity">
-                  <button
-                    className="cartQuantityBtn"
-                    onClick={() => {
-                      handleUpdateCart(cart.itemId._id, -1);
-                    }}
-                  >
-                    -
-                  </button>
-                  <input
-                    className="cartQuantityText"
-                    value={cart.quantity}
-                    onChange={(e) => {
-                      const newQuantity = Number(e.target.value);
+                <div className="col-quantity">
+                  <div className="quantity-control">
+                    <button
+                      className="cartQuantityBtn"
+                      onClick={() => {
+                        handleUpdateCart(cart.itemId._id, -1);
+                      }}
+                    >
+                      -
+                    </button>
+                    <input
+                      className="cartQuantityText"
+                      value={cart.quantity}
+                      onChange={(e) => {
+                        const newQuantity = Number(e.target.value);
 
-                      handleUpdateCart(
-                        cart.itemId._id,
-                        newQuantity,
-                        "directAdjust"
-                      );
-                    }}
-                  ></input>
-                  <button
-                    className="cartQuantityBtn"
-                    onClick={() => {
-                      handleUpdateCart(cart.itemId._id, 1);
-                    }}
-                  >
-                    +
-                  </button>
+                        handleUpdateCart(
+                          cart.itemId._id,
+                          newQuantity,
+                          "directAdjust"
+                        );
+                      }}
+                    ></input>
+                    <button
+                      className="cartQuantityBtn"
+                      onClick={() => {
+                        handleUpdateCart(cart.itemId._id, 1);
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
 
-                <div className="cartTotal">
-                  <p className="cartText">{cart.itemTotal}</p>
+                <div className="col-total">
+                  <p className="cartText text-red">{cart.itemTotal}</p>
                 </div>
 
-                <div className="cartDelete">
+                <div className="col-action">
                   <button
                     type="button"
                     className="btn-close"
