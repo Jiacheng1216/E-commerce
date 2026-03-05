@@ -11,8 +11,10 @@ router.post("/", async (req, res) => {
   const { userID, itemID, quantity } = req.body;
 
   try {
+    //尋找整筆user的購物車資料
     let cart = await Cart.findOne({userId:userID});
 
+    //如果找不到user的購物車資料
     if(!cart || cart == undefined){
       let cart = new Cart({
         userId:userID,
@@ -28,12 +30,15 @@ router.post("/", async (req, res) => {
       )
     }
 
+    //尋找使用者裡商品的資料
     const itemIndex = cart.items.findIndex(i => i.itemId.toString() === itemID)
 
+    //如果找得到商品資料
     if(itemIndex > -1){
       cart.items[itemIndex].quantity += Number(quantity);
 
-      if(quantity == 0){
+      //如果購物車商品數量為0
+      if(cart.items[itemIndex].quantity == 0){
         cart.items.splice(itemIndex,1);
         await cart.save();
         return res.status(203).send(
