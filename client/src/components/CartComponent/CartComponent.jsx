@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import cartService from "../../services/cart.service";
 import "./CartComponent.css";
 
-const CartComponent = ({ currentUser, setCurrentUser }) => {
+const CartComponent = ({ currentUser, setCurrentUser, setCartQuantity }) => {
   let [cartData, setCartData] = useState([]);
   let [total, setTotal] = useState(0);
 
@@ -20,6 +20,7 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
       const response = await cartService.selfCart(currentUser.user._id);
       setCartData(response.data.calcuEveryItemPriceSelfCart);
       setTotal(response.data.calcuTotalPrice);
+      setCartQuantity(response.data.calcuEveryItemPriceSelfCart.length);
     } catch (e) {
       console.log(e);
     }

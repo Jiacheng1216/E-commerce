@@ -3,8 +3,13 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import ItemService from "../../services/item.service";
 import CartService from "../../services/cart.service";
 import "./IndividualItem-component.css";
+import cartService from "../../services/cart.service";
 
-const IndividualItemComponent = ({ currentUser, setCurrentUser }) => {
+const IndividualItemComponent = ({
+  currentUser,
+  setCurrentUser,
+  setCartQuantity,
+}) => {
   const { id } = useParams();
   const [itemData, setItemData] = useState([]);
   let [quantity, setQuantity] = useState("");
@@ -51,6 +56,9 @@ const IndividualItemComponent = ({ currentUser, setCurrentUser }) => {
       );
 
       window.alert(response.data.msg);
+
+      const findCart = await cartService.selfCart(currentUser.user._id);
+      setCartQuantity(findCart.data.calcuEveryItemPriceSelfCart.length);
     } catch (e) {
       console.log(e);
     }
