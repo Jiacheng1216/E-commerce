@@ -12,25 +12,14 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
 
   useEffect(() => {
     fetchCart();
-
-    // calculateTotalPrice();
   }, []);
-
-  // // 計算總金額
-  // const calculateTotalPrice = () => {
-  //   let total = 0;
-  //   cartData.forEach((cart) => {
-  //     total += cart.total;
-  //   });
-  //   setTotal(total);
-  // };
 
   //進頁面時，查找加入購物車的商品
   const fetchCart = async () => {
     try {
       const response = await cartService.selfCart(currentUser.user._id);
-      setCartData(response.data);
-      // calculateTotalPrice();
+      setCartData(response.data.calcuEveryItemPriceSelfCart);
+      setTotal(response.data.calcuTotalPrice);
     } catch (e) {
       console.log(e);
     }
@@ -46,7 +35,6 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
       );
 
       fetchCart();
-      // calculateTotalPrice();
     } catch (e) {
       console.log(e.response.data);
     }
@@ -62,7 +50,6 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
           itemId,
           -quantity
         );
-        // calculateTotalPrice();
         fetchCart();
       } catch (e) {
         console.log(e.response.data);
@@ -90,11 +77,11 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
         </div>
       </div>
       {!currentUser && <div>在獲取您的購物車資料之前，您必須先登錄。</div>}
-      {cartData && cartData != 0 && (
+      {cartData.length > 0 && (
         <div className="cartContainer">
           {cartData.map((cart) => {
             return (
-              <div className="cartRowContainer">
+              <div className="cartRowContainer" key={cart._id}>
                 <div className="cartImgContainer">
                   <img
                     onClick={() =>
@@ -143,7 +130,7 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
                 </div>
 
                 <div className="cartTotal">
-                  <p className="cartText">{cart.total}</p>
+                  <p className="cartText">{cart.itemTotal}</p>
                 </div>
 
                 <div className="cartDelete">

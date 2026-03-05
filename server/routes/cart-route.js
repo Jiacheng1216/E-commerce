@@ -72,7 +72,24 @@ router.get("/selfCart/:id", async (req, res) => {
   try {
     const userId = req.params.id;
     const selfCart = await Cart.findOne({ userId: userId }).populate("items.itemId");
-    res.send(selfCart.items);
+
+    const calcuEveryItemPriceSelfCart = selfCart.items.map((item)=>{
+      const price = item.itemId.price;
+      const itemTotalPrice = price * item.quantity;
+
+      return{
+        _id: item._id,
+        itemId: item.itemId,
+        quantity: item.quantity,
+        itemTotal:itemTotalPrice
+      }
+    })
+
+    const calcuTotalPrice = calcuEveryItemPriceSelfCart.reduce((sum,item)=>{
+      return sum+ item.itemTotal;
+    },0)
+
+    res.send({calcuEveryItemPriceSelfCart,calcuTotalPrice});
   } catch (e) {
     res.status(500).send("無法查詢個人加入購物車的商品");
   }
