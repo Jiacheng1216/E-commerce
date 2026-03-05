@@ -26,12 +26,13 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
   };
 
   //修改訂單(數量)
-  const handleUpdateCart = async (itemId, quantity) => {
+  const handleUpdateCart = async (itemId, quantity, action) => {
     try {
       let response = await cartService.add(
         currentUser.user._id,
         itemId,
-        quantity
+        quantity,
+        action
       );
 
       fetchCart();
@@ -118,6 +119,15 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
                   <input
                     className="cartQuantityText"
                     value={cart.quantity}
+                    onChange={(e) => {
+                      const newQuantity = Number(e.target.value);
+
+                      handleUpdateCart(
+                        cart.itemId._id,
+                        newQuantity,
+                        "directAdjust"
+                      );
+                    }}
                   ></input>
                   <button
                     className="cartQuantityBtn"

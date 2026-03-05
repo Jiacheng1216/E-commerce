@@ -8,7 +8,7 @@ router.use((req, res, next) => {
 
 // 更新購物車的路由
 router.post("/", async (req, res) => {
-  const { userID, itemID, quantity } = req.body;
+  const { userID, itemID, quantity, action} = req.body;
 
   try {
     //尋找整筆user的購物車資料
@@ -35,7 +35,11 @@ router.post("/", async (req, res) => {
 
     //如果找得到商品資料
     if(itemIndex > -1){
-      cart.items[itemIndex].quantity += Number(quantity);
+      if(action == "directAdjust"){
+        cart.items[itemIndex].quantity = Number(quantity);
+      }else{
+        cart.items[itemIndex].quantity += Number(quantity);
+      }
 
       //如果購物車商品數量為0
       if(cart.items[itemIndex].quantity == 0){
