@@ -67,6 +67,17 @@ router.post("/", async (req, res) => {
   }
 });
 
+//以用戶id來查詢購物車中的商品
+router.get("/selfCart/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const selfCart = await Cart.findOne({ userId: userId }).populate("items.itemId");
+    res.send(selfCart.items);
+  } catch (e) {
+    res.status(500).send("無法查詢個人加入購物車的商品");
+  }
+});
+
 //以訂單id刪除購物車商品
 // router.delete("/delete/:id", async (req, res) => {
 //   try {
@@ -93,16 +104,6 @@ router.post("/", async (req, res) => {
 //   }
 // });
 
-//以用戶id來查詢購物車中的商品
-router.get("/selfCart/:id", async (req, res) => {
-  try {
-    const userId = req.params.id;
-    const selfCart = await Cart.find({ userID: userId });
-    res.send(selfCart);
-  } catch (e) {
-    res.status(500).send("無法查詢個人加入購物車的商品");
-  }
-});
 
 //以訂單id更新訂單資訊
 // router.put("/edit/:id", async (req, res) => {
