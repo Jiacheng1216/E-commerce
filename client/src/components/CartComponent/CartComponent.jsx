@@ -18,24 +18,24 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
   useEffect(() => {
     fetchCart();
     handleUpdateCart();
-    calculateTotalPrice();
+    // calculateTotalPrice();
   }, []);
 
-  // 計算總金額
-  const calculateTotalPrice = () => {
-    let total = 0;
-    cartData.forEach((cart) => {
-      total += cart.total;
-    });
-    setTotal(total);
-  };
+  // // 計算總金額
+  // const calculateTotalPrice = () => {
+  //   let total = 0;
+  //   cartData.forEach((cart) => {
+  //     total += cart.total;
+  //   });
+  //   setTotal(total);
+  // };
 
   //進頁面時，查找加入購物車的商品
   const fetchCart = async () => {
     try {
       const response = await cartService.selfCart(currentUser.user._id);
       setCartData(response.data);
-      calculateTotalPrice();
+      // calculateTotalPrice();
     } catch (e) {
       console.log(e);
     }
@@ -45,7 +45,7 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
   const handleUpdateCart = async (id) => {
     try {
       let response = await cartService.updateCart(cartQuantity, id);
-      calculateTotalPrice();
+      // calculateTotalPrice();
       fetchCart();
       console.log(response);
     } catch (e) {
@@ -59,7 +59,7 @@ const CartComponent = ({ currentUser, setCurrentUser }) => {
     if (comfirmed) {
       try {
         let response = await cartService.deleteCart(id);
-        calculateTotalPrice();
+        // calculateTotalPrice();
         fetchCart();
         navigate("/cart");
       } catch (e) {
