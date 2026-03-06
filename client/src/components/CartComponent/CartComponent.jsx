@@ -165,8 +165,8 @@ const CartComponent = ({ currentUser, setCurrentUser, setCartQuantity }) => {
           <label>總金額 :</label>
           <p className="cartCheckoutTotalText"> ${total}</p>
         </div>
-        <div className="buyItem">
-          <p className="buyItembtn">去買單</p>
+        <div className="buyItembtn">
+          <Link to={`./${cartId}/checkout`}>去買單</Link>
         </div>
       </div>
     </div>
