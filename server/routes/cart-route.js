@@ -93,7 +93,7 @@ router.get("/selfCart/:id", async (req, res) => {
       return sum+ item.itemTotal;
     },0)
 
-    res.send({calcuEveryItemPriceSelfCart,calcuTotalPrice});
+    res.send({cartId:selfCart._id,calcuEveryItemPriceSelfCart,calcuTotalPrice});
   } catch (e) {
     res.status(500).send("無法查詢個人加入購物車的商品");
   }

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ItemService from "../../services/item.service";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import cartService from "../../services/cart.service";
 import "./CartComponent.css";
 
 const CartComponent = ({ currentUser, setCurrentUser, setCartQuantity }) => {
   let [cartData, setCartData] = useState([]);
   let [total, setTotal] = useState(0);
+  let [cartId, setCartId] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,6 +22,7 @@ const CartComponent = ({ currentUser, setCurrentUser, setCartQuantity }) => {
       setCartData(response.data.calcuEveryItemPriceSelfCart);
       setTotal(response.data.calcuTotalPrice);
       setCartQuantity(response.data.calcuEveryItemPriceSelfCart.length);
+      setCartId(response.data.cartId);
     } catch (e) {
       console.log(e);
     }
@@ -165,8 +167,8 @@ const CartComponent = ({ currentUser, setCurrentUser, setCartQuantity }) => {
           <label>總金額 :</label>
           <p className="cartCheckoutTotalText"> ${total}</p>
         </div>
-        <div className="buyItem">
-          <p className="buyItembtn">去買單</p>
+        <div className="buyItembtn">
+          <Link to={`./${cartId}/checkout`}>去買單</Link>
         </div>
       </div>
     </div>

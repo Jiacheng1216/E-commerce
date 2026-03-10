@@ -12,6 +12,7 @@ import UserIndividualItemComponent from "./components/UserIndividualItem-compone
 import EditIndividualItemConponent from "./components/EditIndividualItem-component/EditIndividualItem-component";
 import HomeComponent from "./components/HomeComponent/HomeComponent";
 import CartComponent from "./components/CartComponent/CartComponent";
+import CheckoutComponent from "./components/CheckoutComponent/CheckoutComponent";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
@@ -23,7 +24,11 @@ function App() {
         <Route
           path="/"
           element={
-            <Layout currentUser={currentUser} setCurrentUser={setCurrentUser} cartQuantity={cartQuantity} />
+            <Layout
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              cartQuantity={cartQuantity}
+            />
           }
         >
           {/* 首頁 */}
@@ -124,7 +129,18 @@ function App() {
               <CartComponent
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
-                setCartQuantity ={setCartQuantity}
+                setCartQuantity={setCartQuantity}
+              />
+            }
+          />
+
+          {/* 結帳頁面 */}
+          <Route
+            path="cart/:id/checkout"
+            element={
+              <CheckoutComponent
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
               />
             }
           />
