@@ -5,12 +5,7 @@ const orderSchema = new Schema(
   {
     buyer: { type: Schema.Types.ObjectId, ref: "User" },
     seller: { type: Schema.Types.ObjectId, ref: "User" },
-    items: [
-      {
-        productId: { type: Schema.Types.ObjectId, ref: "Item" },
-      },
-    ],
-    totalPrice: Number,
+    cart: { type: Schema.Types.ObjectId, ref: "Cart" },
   },
   {
     timestamps: true,
