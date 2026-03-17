@@ -76,7 +76,7 @@ router.put("/:orderId/complete", async (req, res) => {
   const { completed } = req.body;
 
   try {
-    let orderData = await order.findById(req.params.orderId);
+    let orderData = await Order.findById(req.params.orderId);
 
     if (!orderData) {
       return res.status(404).send("找不到訂單資料...");
@@ -91,6 +91,32 @@ router.put("/:orderId/complete", async (req, res) => {
     });
   } catch (e) {
     return res.status(500).send("無法更新訂單完成狀態...");
+  }
+});
+
+//查詢符合買家id的訂單資料
+router.get("/:buyerId", async (req, res) => {
+  try {
+    let orderData = await Order.find({ buyer: req.params.buyerId }).populate({
+      path: "subOrders",
+      populate: [
+        {
+          path: "seller",
+          select: "username email",
+        },
+        {
+          path: "items.itemId",
+          select: "title imagePath price",
+        },
+      ],
+    });
+
+    return res.status(200).send({
+      orderData,
+      msg: "成功查詢訂單資料",
+    });
+  } catch (e) {
+    return res.status(500).send("無法查詢訂單資料...");
   }
 });
 
