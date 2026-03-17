@@ -13,6 +13,7 @@ import EditIndividualItemConponent from "./components/EditIndividualItem-compone
 import HomeComponent from "./components/HomeComponent/HomeComponent";
 import CartComponent from "./components/CartComponent/CartComponent";
 import CheckoutComponent from "./components/CheckoutComponent/CheckoutComponent";
+import BuyHistoryComponent from "./components/buyHistoryComponent/buyHistoryComponent";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
@@ -139,6 +140,17 @@ function App() {
             path="cart/:id/checkout"
             element={
               <CheckoutComponent
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+
+          {/* 購買記錄頁面 */}
+          <Route
+            path="buyHistory"
+            element={
+              <BuyHistoryComponent
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />
