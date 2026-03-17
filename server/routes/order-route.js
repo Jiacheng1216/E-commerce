@@ -2,6 +2,7 @@ const Cart = require("../models").cart;
 const router = require("express").Router();
 const Order = require("../models").order;
 const SubOrder = require("../models").subOrder;
+const User = require("../models").user;
 
 router.use((req, res, next) => {
   console.log("正在接收一個跟訂單有關的請求...");
@@ -82,11 +83,18 @@ router.put("/item/:subOrderItemId", async (req, res) => {
         $set: { "items.$.completed": true },
       },
       { new: true }
-    );
+    ).populate("items.itemId", "price");
 
     if (!updatedSubOrder) {
       return res.status(404).send("找不到該商品所屬的訂單資料...");
     }
+
+    const targetItem = updatedSubOrder.items.id(subOrderItemId);
+
+    //撥款給賣家
+    const sellerId = updatedSubOrder.seller;
+    const profit = targetItem.quantity * targetItem.itemId.price;
+    await User.updateOne({ _id: sellerId }, { $inc: { balance: profit } });
 
     return res.status(200).send({
       msg: "成功更新商品完成狀態",
