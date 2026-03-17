@@ -99,7 +99,7 @@ router.put("/item/:subOrderItemId", async (req, res) => {
 });
 
 //查詢符合買家id的訂單資料
-router.get("/:buyerId", async (req, res) => {
+router.get("/buyHistory/:buyerId", async (req, res) => {
   try {
     let orderData = await Order.find({ buyer: req.params.buyerId }).populate({
       path: "subOrders",
@@ -121,6 +121,36 @@ router.get("/:buyerId", async (req, res) => {
     });
   } catch (e) {
     return res.status(500).send("無法查詢訂單資料...");
+  }
+});
+
+// 查詢賣家的販賣紀錄 API
+router.get("/sellerHistory/:sellerId", async (req, res) => {
+  const sellerId = req.params.sellerId;
+  try {
+    const mySubOrders = await SubOrder.find({
+      seller: sellerId,
+    }).select("_id");
+    const mySubOrderIds = mySubOrders.map((doc) => doc._id);
+
+    const salesRecords = await Order.find({
+      subOrders: { $in: mySubOrderIds },
+    })
+      .populate("buyer", "username email") // 填充買家資訊
+      .populate({
+        path: "subOrders",
+        match: { seller: sellerId }, // 只填充屬於該賣家的子訂單內容
+        populate: { path: "items.itemId" },
+      })
+      .sort({ createdAt: -1 }); // 依時間排序，最新的在前面
+
+    return res.status(200).send({
+      salesRecords,
+      msg: "成功查詢訂單資料",
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).send("無法取得販賣紀錄...");
   }
 });
 

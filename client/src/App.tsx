@@ -14,6 +14,7 @@ import HomeComponent from "./components/HomeComponent/HomeComponent";
 import CartComponent from "./components/CartComponent/CartComponent";
 import CheckoutComponent from "./components/CheckoutComponent/CheckoutComponent";
 import BuyHistoryComponent from "./components/buyHistoryComponent/buyHistoryComponent";
+import SellHistoryComponent from "./components/sellHistoryComponent/sellHistoryComponent";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
@@ -151,6 +152,17 @@ function App() {
             path="buyHistory"
             element={
               <BuyHistoryComponent
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+
+          {/* 販賣記錄頁面 */}
+          <Route
+            path="sellHistory"
+            element={
+              <SellHistoryComponent
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />

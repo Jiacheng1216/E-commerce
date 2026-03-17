@@ -18,7 +18,12 @@ class OrderService {
 
   //查詢買家訂單
   getOrdersByBuyer(buyerId) {
-    return axios.get(API_URL + `/${buyerId}`);
+    return axios.get(API_URL + `/buyHistory/${buyerId}`);
+  }
+
+  //查詢賣家訂單
+  getOrdersBySeller(sellerId) {
+    return axios.get(API_URL + `/sellerHistory/${sellerId}`);
   }
 }
 
