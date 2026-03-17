@@ -92,6 +92,7 @@ const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
                   e.stopPropagation();
                 }}
               >
+                <li className="navBalance">{currentUser.user.balance} 🪙</li>
                 <li className="">
                   <Link
                     className=""
