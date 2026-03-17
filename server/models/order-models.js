@@ -18,6 +18,7 @@ const subOrderSchema = new Schema({
         default: 1,
       },
       totalPrice: { type: Number },
+      completed: { type: Boolean, default: false },
     },
   ],
 });
