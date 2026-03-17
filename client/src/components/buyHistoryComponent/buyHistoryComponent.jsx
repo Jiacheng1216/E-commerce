@@ -76,6 +76,12 @@ const BuyHistoryComponent = ({ currentUser }) => {
                         <div className="product-price">
                           ${item.itemId?.price}
                         </div>
+                        <button
+                          className="product-receive"
+                          disabled={order.completed}
+                        >
+                          {order.completed ? "已收貨" : "確認領收"}
+                        </button>
                       </div>
                     ))}
                   </div>
