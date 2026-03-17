@@ -9,6 +9,23 @@ const BuyHistoryComponent = ({ currentUser }) => {
     fetchOrder();
   }, []);
 
+  // 確認領收按鈕事件處理
+  const handleReceive = async (orderId) => {
+    const comfirmed = window.confirm(
+      "您確定已經收到貨嗎？按下確定後將撥款給賣家，並且無法再修改訂單狀態。"
+    );
+
+    if (comfirmed) {
+      try {
+        const response = await orderService.updateSubOrderItemStatus(orderId);
+        window.alert(response.data.msg);
+        fetchOrder();
+      } catch (e) {
+        window.alert(e);
+      }
+    }
+  };
+
   const fetchOrder = async () => {
     try {
       const response = await orderService.getOrdersByBuyer(
@@ -78,9 +95,10 @@ const BuyHistoryComponent = ({ currentUser }) => {
                         </div>
                         <button
                           className="product-receive"
-                          disabled={order.completed}
+                          disabled={item.completed}
+                          onClick={() => handleReceive(item._id)}
                         >
-                          {order.completed ? "已收貨" : "確認領收"}
+                          {item.completed ? "已收貨" : "確認領收"}
                         </button>
                       </div>
                     ))}

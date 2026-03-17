@@ -71,26 +71,30 @@ router.post("/", async (req, res) => {
   }
 });
 
-//更新訂單完成狀態api
-router.put("/:orderId/complete", async (req, res) => {
-  const { completed } = req.body;
+// 更新子訂單某個商品完成狀態 api
+router.put("/item/:subOrderItemId", async (req, res) => {
+  const { subOrderItemId } = req.params;
 
   try {
-    let orderData = await Order.findById(req.params.orderId);
+    const updatedSubOrder = await SubOrder.findOneAndUpdate(
+      { "items._id": subOrderItemId },
+      {
+        $set: { "items.$.completed": true },
+      },
+      { new: true }
+    );
 
-    if (!orderData) {
-      return res.status(404).send("找不到訂單資料...");
+    if (!updatedSubOrder) {
+      return res.status(404).send("找不到該商品所屬的訂單資料...");
     }
 
-    orderData.completed = completed;
-    await orderData.save();
-
     return res.status(200).send({
-      msg: "成功更新訂單完成狀態",
-      order: orderData,
+      msg: "成功更新商品完成狀態",
+      order: updatedSubOrder,
     });
   } catch (e) {
-    return res.status(500).send("無法更新訂單完成狀態...");
+    console.error(e);
+    return res.status(500).send("伺服器錯誤，無法更新狀態...");
   }
 });
 

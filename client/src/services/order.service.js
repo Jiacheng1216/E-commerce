@@ -12,10 +12,8 @@ class OrderService {
   }
 
   // 更新訂單狀態
-  updateOrderStatus(completed) {
-    return axios.put(API_URL + "/:orderId/complete", {
-      completed,
-    });
+  updateSubOrderItemStatus(subOrderItemId) {
+    return axios.put(API_URL + "/item/" + subOrderItemId);
   }
 
   //查詢買家訂單
