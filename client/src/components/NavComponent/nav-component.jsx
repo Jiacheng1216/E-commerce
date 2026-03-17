@@ -119,7 +119,7 @@ const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
                 <li className="">
                   <Link
                     className=""
-                    to="/"
+                    to="/buyHistory"
                     onClick={() => {
                       setOpenMenu(false);
                     }}
