@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import cartService from "../../services/cart.service";
 import "./CheckoutComponent.css"; // 建議建一個新的 CSS 以便微調
+import orderService from "../../services/order.service";
 
 const CheckoutComponent = ({ currentUser }) => {
   const [cartData, setCartData] = useState([]);
@@ -24,8 +25,20 @@ const CheckoutComponent = ({ currentUser }) => {
     }
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     // TODO : 根據 paymentMethod 進行結帳流程
+    try {
+      let response = await orderService.createOrder(
+        currentUser.user._id,
+        cartData,
+        total
+      );
+
+      window.alert(response.data.msg + "，現在跳轉回購物車頁面");
+      navigate("/cart");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
