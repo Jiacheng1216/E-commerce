@@ -17,6 +17,11 @@ class OrderService {
       completed,
     });
   }
+
+  //查詢買家訂單
+  getOrdersByBuyer(buyerId) {
+    return axios.get(API_URL + `/${buyerId}`);
+  }
 }
 
 export default new OrderService();

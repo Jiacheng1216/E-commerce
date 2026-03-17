@@ -1,0 +1,145 @@
+.buy-history-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-title {
+  margin-bottom: 30px;
+  color: #333;
+  border-left: 5px solid #ff4757;
+  padding-left: 15px;
+}
+
+.main-order-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+/* 頂部資訊欄 */
+.main-order-header {
+  background: #f8f9fa;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.info-group .label {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.order-id {
+  font-family: monospace;
+  font-weight: bold;
+  color: #2f3542;
+}
+
+.status-tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-tag.processing {
+  background: #fff2e0;
+  color: #ff9f43;
+}
+.status-tag.completed {
+  background: #e3fcef;
+  color: #00b894;
+}
+
+/* 賣家區塊 */
+.seller-package {
+  padding: 20px;
+  border-bottom: 1px dashed #eee;
+}
+
+.seller-info {
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.seller-email {
+  margin-left: 8px;
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+/* 商品清單 */
+.product-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+.product-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+}
+
+.product-detail {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.product-title {
+  font-weight: 600;
+  margin: 0;
+  color: #2d3436;
+}
+
+.product-qty {
+  color: #777;
+  font-size: 0.9rem;
+  margin: 5px 0 0 0;
+}
+
+.product-price {
+  font-weight: bold;
+  color: #2d3436;
+}
+
+/* 底部結算 */
+.main-order-footer {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+}
+
+.total-label {
+  font-size: 1rem;
+  color: #555;
+}
+
+.total-amount {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ff4757;
+}
+
+.no-data {
+  text-align: center;
+  padding: 50px;
+  color: #aaa;
+  font-size: 1.2rem;
+}
