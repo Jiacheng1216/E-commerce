@@ -27,7 +27,7 @@ const subOrder = mongoose.model("SubOrder", subOrderSchema);
 const orderSchema = new Schema(
   {
     buyer: { type: Schema.Types.ObjectId, ref: "User" },
-    subOrders: [{ type: Schema.Types.ObjectId, ref: subOrderSchema }],
+    subOrders: [{ type: Schema.Types.ObjectId, ref: "SubOrder" }],
     totalPrice: { type: Number, required: true },
     completed: { type: Boolean, default: false },
   },
