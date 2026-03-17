@@ -54,13 +54,13 @@ const BuyHistoryComponent = ({ currentUser }) => {
                 <span className="label">下單時間：</span>
                 <span>{new Date(order.createdAt).toLocaleString()}</span>
               </div>
-              <div
+              {/* <div
                 className={`status-tag ${
                   order.completed ? "completed" : "processing"
                 }`}
               >
                 {order.completed ? "已完成" : "處理中"}
-              </div>
+              </div> */}
             </div>
 
             {/* 子訂單 (按賣家拆分) */}
