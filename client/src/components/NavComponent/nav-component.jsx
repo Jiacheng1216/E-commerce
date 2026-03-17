@@ -116,6 +116,18 @@ const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
                   </Link>
                 </li>
 
+                <li className="">
+                  <Link
+                    className=""
+                    to="/"
+                    onClick={() => {
+                      setOpenMenu(false);
+                    }}
+                  >
+                    購買記錄
+                  </Link>
+                </li>
+
                 <li className="logout-li">
                   <Link
                     onClick={() => {
