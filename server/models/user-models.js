@@ -21,6 +21,10 @@ const userSchema = new Schema({
     minlength: 6,
     maxlength: 50,
   },
+  balance: {
+    type: Number,
+    default: 0,
+  },
   date: {
     type: Date,
     default: Date.now,
