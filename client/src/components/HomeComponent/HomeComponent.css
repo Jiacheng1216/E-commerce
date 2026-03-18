@@ -102,7 +102,7 @@
 
 /* 手機版適應 */
 @media (max-width: 768px) {
-  main {
+  .home-main {
     flex-direction: column-reverse;
     text-align: center;
     gap: 2rem;
