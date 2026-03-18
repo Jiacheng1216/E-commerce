@@ -130,4 +130,22 @@ router.put("/edit/:id", async (req, res) => {
   }
 });
 
+//查詢商品的api
+router.get("/search", async (req, res) => {
+  const { q } = req.query;
+
+  try {
+    let queryObj = {};
+    if (q) {
+      queryObj.title = { $regex: q, $options: "i" };
+    }
+
+    const results = await Item.find(queryObj);
+
+    res.status(200).send({ results, msg: "搜尋成功" });
+  } catch (e) {
+    res.status(500).send("搜尋出錯");
+  }
+});
+
 module.exports = router;
