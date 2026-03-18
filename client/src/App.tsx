@@ -15,6 +15,7 @@ import CartComponent from "./components/CartComponent/CartComponent";
 import CheckoutComponent from "./components/CheckoutComponent/CheckoutComponent";
 import BuyHistoryComponent from "./components/buyHistoryComponent/buyHistoryComponent";
 import SellHistoryComponent from "./components/sellHistoryComponent/sellHistoryComponent";
+import SearchComponent from "./components/SearchComponent/SearchComponent";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
@@ -163,6 +164,16 @@ function App() {
             path="sellHistory"
             element={
               <SellHistoryComponent
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+
+          <Route
+            path="search"
+            element={
+              <SearchComponent
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />
