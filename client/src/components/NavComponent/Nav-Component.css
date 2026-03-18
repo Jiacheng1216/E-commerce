@@ -156,3 +156,49 @@
   font-size: 1.5rem;
   border-bottom: 1px solid rgb(218, 215, 215);
 }
+
+/* 漢堡按鈕 */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+/* 手機側邊選單 */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100vh;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  z-index: 999;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: black;
+}
+
+/* RWD */
+@media (max-width: 768px) {
+  /* 隱藏桌面版元素 */
+  .nav-div,
+  .search-div,
+  .login-btn,
+  .cart-user-div {
+    display: none;
+  }
+
+  /* 顯示漢堡 */
+  .hamburger {
+    display: block;
+  }
+}

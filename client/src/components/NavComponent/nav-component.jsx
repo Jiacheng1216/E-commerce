@@ -7,6 +7,7 @@ import cart from "../Assets/cart.png";
 const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [keyword, setKeyword] = useState("");
+  const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,7 +26,10 @@ const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
 
   // 點擊頁面其他地方自動關閉下拉選單
   useEffect(() => {
-    const handleClickOutside = () => setOpenMenu(false);
+    const handleClickOutside = () => {
+      setOpenMenu(false);
+      setOpenMobileMenu(false);
+    };
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
@@ -166,6 +170,74 @@ const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
               </ul>
             )}
           </div>
+        </div>
+      )}
+
+      {/* rwd */}
+      <div
+        className="hamburger"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpenMobileMenu(!openMobileMenu);
+        }}
+      >
+        ☰
+      </div>
+      {openMobileMenu && (
+        <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+          {/* 搜尋 */}
+          <form onSubmit={handleSearch}>
+            <input
+              type="search"
+              placeholder="Search"
+              onChange={(e) => setKeyword(e.target.value)}
+            />
+          </form>
+
+          <li className="navBalance">{currentUser.user.balance} 🪙</li>
+
+          <Link to="/item" onClick={() => setOpenMobileMenu(false)}>
+            商品一覽
+          </Link>
+
+          {!currentUser && (
+            <Link to="/Login" onClick={() => setOpenMobileMenu(false)}>
+              登入
+            </Link>
+          )}
+
+          {currentUser && (
+            <>
+              <Link to="/cart" onClick={() => setOpenMobileMenu(false)}>
+                購物車 ({cartQuantity})
+              </Link>
+
+              <Link to="/profile" onClick={() => setOpenMobileMenu(false)}>
+                個人頁面
+              </Link>
+
+              <Link to="/postItem" onClick={() => setOpenMobileMenu(false)}>
+                我要刊登
+              </Link>
+
+              <Link to="/buyHistory" onClick={() => setOpenMobileMenu(false)}>
+                購買記錄
+              </Link>
+
+              <Link to="/sellHistory" onClick={() => setOpenMobileMenu(false)}>
+                販賣記錄
+              </Link>
+
+              <div
+                onClick={() => {
+                  handleLogout();
+                  setOpenMobileMenu(false);
+                }}
+              >
+                登出
+              </div>
+            </>
+          )}
         </div>
       )}
     </main>
