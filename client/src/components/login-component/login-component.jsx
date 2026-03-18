@@ -4,15 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import "./login-component.css";
 
 const LoginComponent = ({ currentUser, setCurrentUser }) => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const navigate = useNavigate();
-
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [message, setMessage] = useState("");
+
+  const handleSubmit = (event) => {
+    // 阻止瀏覽器刷新
+    event.preventDefault();
+    handleLogin();
+  };
+
+  const navigate = useNavigate();
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -35,49 +37,33 @@ const LoginComponent = ({ currentUser, setCurrentUser }) => {
 
   return (
     <div className="loginPage">
-      <form
-        className="loginForm"
-        onSubmit={handleSubmit}
-        style={{ padding: "5rem" }}
-      >
-        <div className="loginInput">
-          <div className="mb-3">
-            {message && <div className="alert alert-danger">{message}</div>}
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              電子信箱
-            </label>
+      <form className="loginForm" onSubmit={handleSubmit}>
+        {message && <div className="errorMessage">{message}</div>}
+        <h1>登入</h1>
+        <input
+          onChange={handleEmail}
+          type="email"
+          className="loginPage-input"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          placeholder="Email"
+        />
 
-            <input
-              onChange={handleEmail}
-              type="email"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-            />
-          </div>
+        <input
+          onChange={handlePassword}
+          type="password"
+          className="loginPage-input"
+          id="exampleInputPassword1"
+          placeholder="Password"
+        />
 
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              密碼
-            </label>
-            <input
-              onChange={handlePassword}
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-            />
-          </div>
+        <p className="form-check-label">
+          沒有帳戶嗎?<Link to={"/register"}>註冊</Link>一個
+        </p>
 
-          <div className="LoginAndRegister">
-            <button className="btn btn-primary" onClick={handleLogin}>
-              登入
-            </button>
-
-            <label className="form-check-label">
-              沒有帳戶嗎?<Link to={"/register"}>註冊</Link>一個
-            </label>
-          </div>
-        </div>
+        <button className="loginPage-loginBtn" type="submit">
+          登入
+        </button>
       </form>
     </div>
   );

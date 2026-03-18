@@ -6,6 +6,7 @@ dotenv.config();
 const authRoute = require("./routes").auth;
 const itemRoute = require("./routes").itemAuth;
 const cartRoute = require("./routes").cart;
+const orderRoute = require("./routes").order;
 const cors = require("cors");
 
 //連結到mongoDB
@@ -28,7 +29,7 @@ app.use("/images", express.static("uploads"));
 app.use("/api/user", authRoute);
 app.use("/api/item", itemRoute);
 app.use("/api/cart", cartRoute);
-// app.use("/order");
+app.use("/api/order", orderRoute);
 
 //連結到後端伺服器
 app.listen(8080, () => {

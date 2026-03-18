@@ -12,9 +12,14 @@ import UserIndividualItemComponent from "./components/UserIndividualItem-compone
 import EditIndividualItemConponent from "./components/EditIndividualItem-component/EditIndividualItem-component";
 import HomeComponent from "./components/HomeComponent/HomeComponent";
 import CartComponent from "./components/CartComponent/CartComponent";
+import CheckoutComponent from "./components/CheckoutComponent/CheckoutComponent";
+import BuyHistoryComponent from "./components/buyHistoryComponent/buyHistoryComponent";
+import SellHistoryComponent from "./components/sellHistoryComponent/sellHistoryComponent";
+import SearchComponent from "./components/SearchComponent/SearchComponent";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
+  let [cartQuantity, setCartQuantity] = useState(0);
 
   return (
     <BrowserRouter>
@@ -22,7 +27,11 @@ function App() {
         <Route
           path="/"
           element={
-            <Layout currentUser={currentUser} setCurrentUser={setCurrentUser} />
+            <Layout
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              cartQuantity={cartQuantity}
+            />
           }
         >
           {/* 首頁 */}
@@ -89,6 +98,7 @@ function App() {
               <IndividualItemComponent
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
+                setCartQuantity={setCartQuantity}
               />
             }
           />
@@ -120,6 +130,50 @@ function App() {
             path="cart"
             element={
               <CartComponent
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                setCartQuantity={setCartQuantity}
+              />
+            }
+          />
+
+          {/* 結帳頁面 */}
+          <Route
+            path="cart/:id/checkout"
+            element={
+              <CheckoutComponent
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+
+          {/* 購買記錄頁面 */}
+          <Route
+            path="buyHistory"
+            element={
+              <BuyHistoryComponent
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+
+          {/* 販賣記錄頁面 */}
+          <Route
+            path="sellHistory"
+            element={
+              <SellHistoryComponent
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+
+          <Route
+            path="search"
+            element={
+              <SearchComponent
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />

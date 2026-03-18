@@ -1,9 +1,28 @@
-.quantitydiv {
-  margin-bottom: 1em;
+/* 整個頁面 */
+.editPage {
+  display: flex;
+  justify-content: center;
 }
 
-.postItemh1 {
+/* 整個表格 */
+.editForm {
+  margin: 1rem 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid #ccc;
+  border-radius: 3%;
+  max-width: 30rem;
+  width: 100%;
+}
+
+.postItemH1 {
   display: flex;
   justify-content: center;
   margin-bottom: 1em;
+}
+
+.btn-primary {
+  margin-top: 1rem;
 }

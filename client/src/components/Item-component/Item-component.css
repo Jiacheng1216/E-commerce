@@ -1,39 +1,90 @@
-.hint {
+.itemPage {
   display: flex;
-  font-size: 3em;
-  justify-content: center;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+/* 未登入提示字樣 */
+.hint {
+  margin: 0 auto;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 /* 商品一覽字樣 */
-.spil {
-  border-bottom: 2px solid gray;
-  margin-bottom: 2em;
-  padding-bottom: 1em;
-  margin-left: 8em;
+.itemPageH1 {
+  border-bottom: 1px solid rgb(202, 202, 202);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-/* 商品卡片的容器 */
-.card-container {
-  padding-left: 8em;
+/* 所有卡片的大容器 */
+.itemCard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.shadow-on-hover {
-  transform: scale(1);
-  transition: transform 0.3s ease;
-}
-
-.shadow-on-hover:hover {
-  transform: scale(1.07);
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.description {
-  height: 25px;
+/* 單一卡片容器 */
+.itemCard {
   overflow: hidden;
+  border: 1px solid rgb(202, 202, 202);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card-title {
-  height: 25px;
+.itemCard:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.itemCard a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 單一卡片 圖片 */
+.card-img {
+  width: 100%;
+  height: 15rem;
+}
+
+/* 單一卡片 內容 */
+.card-body {
+  border-top: 1px solid rgb(209, 209, 209);
+  padding: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 商品標題 */
+.card-body h2 {
+  height: 3.4rem;
   overflow: hidden;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* 價錢 */
+.card-text-price {
+  color: rgb(253, 28, 28);
+  font-size: 1.5rem;
+}
+
+/* 數量 */
+.card-text-quantity {
+  position: absolute;
+  bottom: 3.5rem;
+  right: 1rem;
+}
+
+/* 刊登日期 */
+.card-text-date {
+  font-size: 0.9rem;
+  color: rgb(158, 158, 158);
 }

@@ -61,6 +61,11 @@ class ItemService {
       quantity,
     });
   }
+
+  //搜尋商品
+  searchItem(keyword) {
+    return axios.get(API_URL + "/search?q=" + keyword);
+  }
 }
 
 export default new ItemService();
