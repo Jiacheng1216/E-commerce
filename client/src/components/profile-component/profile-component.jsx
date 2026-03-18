@@ -90,7 +90,7 @@ const ProfileComponent = ({ currentUser, setCurrentUser }) => {
                     </Link>
                     <button
                       className="deleteItemBtn"
-                      onClick={handleDeleteItem}
+                      onClick={() => handleDeleteItem(item._id)}
                     >
                       下架物品
                     </button>
