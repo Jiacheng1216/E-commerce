@@ -1,15 +1,18 @@
 電商網站首頁
 
-![image](https://github.com/Jiacheng1216/ecommerce/assets/88382512/a9d3f8e0-aba5-468d-aeec-f3f1117988a6)
+![image](https://res.cloudinary.com/dolh0m6va/image/upload/v1773817660/%E6%88%AA%E5%9C%96_2026-03-18_%E4%B8%8B%E5%8D%882.36.37_m3hwof.png)
 
 商品一覽
 
-![image](https://github.com/Jiacheng1216/ecommerce/assets/88382512/4dc4bd55-d2b3-4523-a32c-a5d983fa2448)
+![image](https://res.cloudinary.com/dolh0m6va/image/upload/v1773817673/%E6%88%AA%E5%9C%96_2026-03-18_%E4%B8%8B%E5%8D%883.00.54_zkf97t.png)
 
 購物車頁面
 
-![image](https://github.com/Jiacheng1216/ecommerce/assets/88382512/1176abc1-b084-4dd7-a153-98f68297c6e9)
+![image](https://res.cloudinary.com/dolh0m6va/image/upload/v1773817680/%E6%88%AA%E5%9C%96_2026-03-18_%E4%B8%8B%E5%8D%883.02.21_azqp2i.png)
 
-個人資訊頁面
+購買記錄頁面
 
-![image](https://github.com/Jiacheng1216/ecommerce/assets/88382512/3a6314ff-7013-4767-966a-eb0886630478)
+![image](https://res.cloudinary.com/dolh0m6va/image/upload/v1773817694/%E6%88%AA%E5%9C%96_2026-03-18_%E4%B8%8B%E5%8D%883.03.41_yzp68v.png)
+
+刊登商品
+![image](https://res.cloudinary.com/dolh0m6va/image/upload/v1773817701/%E6%88%AA%E5%9C%96_2026-03-18_%E4%B8%8B%E5%8D%883.04.25_nxut40.png)
