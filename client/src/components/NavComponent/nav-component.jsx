@@ -47,9 +47,9 @@ const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
             <li className="item-view-btn">
               <Link to="/item">商品一覽</Link>
             </li>
-            <li className="test-btn">
+            {/* <li className="test-btn">
               <Link to="/">測試</Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>
