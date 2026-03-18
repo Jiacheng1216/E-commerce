@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthServeice from "../../services/auth.service";
 import "./Nav-Component.css";
 import cart from "../Assets/cart.png";
-import CartService from "../../services/cart.service";
 
 const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [keyword, setKeyword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      navigate(`/search?q=${keyword}`);
+    }
+  };
 
   const handleLogout = () => {
     AuthServeice.logout();
@@ -46,17 +55,18 @@ const NavComponent = ({ currentUser, setCurrentUser, cartQuantity }) => {
       </div>
 
       {/* 搜尋框 */}
-      <div className="search-div">
+      <form className="search-div" onSubmit={handleSearch}>
         <input
           className="form-control me-2"
           type="search"
           placeholder="Search"
           aria-label="Search"
+          onChange={(e) => setKeyword(e.target.value)}
         />
         <button className="btn btn-outline-success" type="submit">
           Search
         </button>
-      </div>
+      </form>
 
       {!currentUser && (
         <Link className="login-btn" to="/Login">
